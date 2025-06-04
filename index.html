@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur SCG - Entrée Express 2025</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 850px; margin: 25px auto; padding: 25px; background-color: #f4f7f6; color: #333; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; font-size: 2.2em; }
+        h2 { color: #34495e; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; margin-top: 30px; margin-bottom: 20px; font-size: 1.5em; }
+        .section { background-color: #ffffff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        label { display: block; margin: 15px 0 8px; font-weight: bold; color: #555; }
+        select, input[type="number"] { width: calc(100% - 22px); padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; border: none; padding: 12px 25px; cursor: pointer; border-radius: 5px; font-size: 1.1em; transition: background-color 0.3s ease; display: block; margin: 25px auto 0; }
+        button:hover { background-color: #218838; }
+        #result { font-weight: bold; margin-top: 30px; padding: 20px; background-color: #e6ffed; border-radius: 8px; border: 1px solid #c3e6cb; }
+        #result h3 { color: #1e7e34; margin-top: 0; font-size: 1.8em; }
+        #result ul { list-style-type: none; padding: 0; }
+        #result ul li { margin-bottom: 8px; padding-left: 10px; border-left: 3px solid #c3e6cb; }
+        .small { font-size: 0.85em; color: #666; margin-top: 5px; margin-bottom: 10px; }
+        .conjoint-section { display:none; border-top: 1px dashed #e0e0e0; padding-top: 20px; margin-top: 20px;}
+        .info-box { background-color: #e0f2f7; border-left: 5px solid #2196f3; padding: 15px; margin-bottom: 20px; border-radius: 4px; font-size: 0.95em; color: #3f51b5; }
+    </style>
+</head>
+<body>
+    <h1>Calculateur de Score SCG - Entrée Express Canada 2025</h1>
+    <div class="info-box">
+        Cet outil vous aide à estimer votre score selon le Système de Classement Global (SCG) d'Entrée Express. Les résultats sont une estimation et ne garantissent pas une invitation à présenter une demande. Les critères peuvent être ajustés par IRCC.
+    </div>
+
+    <div class="section">
+        <h2>1. Situation Familiale</h2>
+        <label for="conjoint">Avez-vous un conjoint ou partenaire inclus dans votre demande ?</label>
+        <select id="conjoint" onchange="afficherConjoint()">
+            <option value="non">Non (Demandeur principal seul)</option>
+            <option value="oui">Oui (Avec conjoint/partenaire)</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>2. Âge du Demandeur Principal</h2>
+        <label for="age">Votre âge au moment de la demande (en années) :</label>
+        <input type="number" id="age" min="18" max="65" value="30">
+        <p class="small">L'âge est un facteur important. Les points diminuent après 29 ans.</p>
+    </div>
+
+    <div class="section">
+        <h2>3. Niveau d'Éducation du Demandeur Principal</h2>
+        <label for="education">Votre plus haut diplôme obtenu et évalué par un E.C.A. (Évaluation des Diplômes) :</label>
+        <select id="education">
+            <option value="0">Moins qu'un diplôme d'études secondaires</option>
+            <option value="30">Diplôme d'études secondaires</option>
+            <option value="90">Certificat, diplôme ou grade d'un an postsecondaire</option>
+            <option value="98">Certificat, diplôme ou grade de deux ans postsecondaire</option>
+            <option value="120">Baccalauréat (trois ans ou plus)</option>
+            <option value="128">Deux certificats, diplômes ou grades postsecondaires (dont un de trois ans ou plus)</option>
+            <option value="135">Maîtrise, diplôme professionnel (médecine, droit, dentisterie, etc.) ou Doctorat (Ph.D.)</option>
+            <option value="150">Doctorat (Ph.D.)</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>4. Compétences Linguistiques Officielles (Demandeur Principal)</h2>
+        <p class="small">Veuillez entrer vos niveaux de compétence linguistique basés sur un test approuvé (TEF Canada, TCF Canada, IELTS, CELPIP).</p>
+
+        <h3>Français (Première langue officielle)</h3>
+        <label for="langue-fr-ecoute">Compréhension de l'oral (NCLC) :</label>
+        <select id="langue-fr-ecoute">
+            <option value="0">Moins de 4</option>
+            <option value="6">NCLC 4</option>
+            <option value="9">NCLC 5</option>
+            <option value="17">NCLC 6</option>
+            <option value="23">NCLC 7</option>
+            <option value="31">NCLC 8</option>
+            <option value="34">NCLC 9</option>
+            <option value="34">NCLC 10 ou plus</option>
+        </select>
+        <label for="langue-fr-parler">Expression orale (NCLC) :</label>
+        <select id="langue-fr-parler">
+            <option value="0">Moins de 4</option>
+            <option value="6">NCLC 4</option>
+            <option value="9">NCLC 5</option>
+            <option value="17">NCLC 6</option>
+            <option value="23">NCLC 7</option>
+            <option value="31">NCLC 8</option>
+            <option value="34">NCLC 9</option>
+            <option value="34">NCLC 10 ou plus</option>
+        </select>
+        <label for="langue-fr-lire">Compréhension de l'écrit (NCLC) :</label>
+        <select id="langue-fr-lire">
+            <option value="0">Moins de 4</option>
+            <option value="6">NCLC 4</option>
+            <option value="9">NCLC 5</option>
+            <option value="17">NCLC 6</option>
+            <option value="23">NCLC 7</option>
+            <option value="31">NCLC 8</option>
+            <option value="34">NCLC 9</option>
+            <option value="34">NCLC 10 ou plus</option>
+        </select>
+        <label for="langue-fr-ecrire">Expression écrite (NCLC) :</label>
+        <select id="langue-fr-ecrire">
+            <option value="0">Moins de 4</option>
+            <option value="6">NCLC 4</option>
+            <option value="9">NCLC 5</option>
+            <option value="17">NCLC 6</option>
+            <option value="23">NCLC 7</option>
+            <option value="31">NCLC 8</option>
+            <option value="34">NCLC 9</option>
+            <option value="34">NCLC 10 ou plus</option>
+        </select>
+
+        <h3>Anglais (Seconde langue officielle, optionnel)</h3>
+        <label for="langue-en-ecoute">Compréhension de l'oral (CLB) :</label>
+        <select id="langue-en-ecoute">
+            <option value="0">Aucun / Moins de 4</option>
+            <option value="1">CLB 4</option>
+            <option value="1">CLB 5</option>
+            <option value="2">CLB 6</option>
+            <option value="3">CLB 7</option>
+            <option value="5">CLB 8</option>
+            <option value="6">CLB 9</option>
+            <option value="6">CLB 10 ou plus</option>
+        </select>
+        <label for="langue-en-parler">Expression orale (CLB) :</label>
+        <select id="langue-en-parler">
+            <option value="0">Aucun / Moins de 4</option>
+            <option value="1">CLB 4</option>
+            <option value="1">CLB 5</option>
+            <option value="2">CLB 6</option>
+            <option value="3">CLB 7</option>
+            <option value="5">CLB 8</option>
+            <option value="6">CLB 9</option>
+            <option value="6">CLB 10 ou plus</option>
+        </select>
+        <label for="langue-en-lire">Compréhension de l'écrit (CLB) :</label>
+        <select id="langue-en-lire">
+            <option value="0">Aucun / Moins de 4</option>
+            <option value="1">CLB 4</option>
+            <option value="1">CLB 5</option>
+            <option value="2">CLB 6</option>
+            <option value="3">CLB 7</option>
+            <option value="5">CLB 8</option>
+            <option value="6">CLB 9</option>
+            <option value="6">CLB 10 ou plus</option>
+        </select>
+        <label for="langue-en-ecrire">Expression écrite (CLB) :</label>
+        <select id="langue-en-ecrire">
+            <option value="0">Aucun / Moins de 4</option>
+            <option value="1">CLB 4</option>
+            <option value="1">CLB 5</option>
+            <option value="2">CLB 6</option>
+            <option value="3">CLB 7</option>
+            <option value="5">CLB 8</option>
+            <option value="6">CLB 9</option>
+            <option value="6">CLB 10 ou plus</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>5. Expérience de Travail du Demandeur Principal</h2>
+        <label for="experience-canada">Années d'expérience de travail qualifiée à temps plein au Canada (Niveau de compétence 0, A ou B de la CNP) :</label>
+        <select id="experience-canada">
+            <option value="0">Moins d'1 an</option>
+            <option value="40">1 an</option>
+            <option value="53">2 ans</option>
+            <option value="64">3 ans</option>
+            <option value="72">4 ans</option>
+            <option value="80">5 ans ou plus</option>
+        </select>
+        <label for="experience-etranger">Années d'expérience de travail qualifiée à temps plein à l'étranger :</label>
+        <select id="experience-etranger">
+            <option value="0">Moins d'1 an</option>
+            <option value="13">1 an ou plus, mais moins de 2 ans</option>
+            <option value="25">2 ans ou plus, mais moins de 3 ans</option>
+            <option value="25">3 ans ou plus</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>6. Facteurs de Transférabilité des Compétences</h2>
+        <p class="small">Ces points sont additionnels et dépendent de la combinaison de votre éducation, expérience et compétences linguistiques. Maximum 100 points.</p>
+        <div id="auto-transferabilite" style="padding: 10px; background-color: #f0f8ff; border-radius: 5px; border: 1px solid #d0e8f2;">
+            Calcul automatique après remplissage des sections ci-dessus.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>7. Facteurs Additionnels</h2>
+        <p class="small">Ces facteurs peuvent ajouter un nombre significatif de points à votre score.</p>
+        <label for="nomination">Avez-vous une désignation provinciale (PCP) valide ?</label>
+        <select id="nomination">
+            <option value="0">Non</option>
+            <option value="600">Oui (+600 points)</option>
+        </select>
+
+        <label for="offre">Avez-vous une offre d'emploi valide (validée par une Étude d'Impact sur le Marché du Travail - EIMT, sauf exemptions) ?</label>
+        <select id="offre">
+            <option value="0">Non</option>
+            <option value="50">Oui (pour la plupart des postes qualifiés)</option>
+            <option value="200">Oui (pour les postes de direction CNP 00)</option>
+        </select>
+
+        <label for="etudes-canada">Avez-vous fait des études postsecondaires au Canada ?</label>
+        <select id="etudes-canada">
+            <option value="0">Aucune</option>
+            <option value="15">1 ou 2 ans (certificat/diplôme)</option>
+            <option value="30">3 ans ou plus (diplôme, baccalauréat, maîtrise, doctorat)</option>
+        </select>
+
+        <label for="famille-canada">Avez-vous un frère ou une sœur (par le sang, le mariage ou l'adoption) âgé de 18 ans ou plus, qui est citoyen canadien ou résident permanent ?</label>
+        <select id="famille-canada">
+            <option value="0">Non</option>
+            <option value="15">Oui (+15 points)</option>
+        </select>
+        
+        <label for="francais-avance">Avez-vous un niveau de NCLC 7 ou plus dans les 4 compétences en français ET un CLB 4 ou moins dans les 4 compétences en anglais ?</label>
+        <select id="francais-avance">
+            <option value="0">Non</option>
+            <option value="25">Oui, NCLC 7+ en français et CLB 4 ou moins en anglais (+25 points)</option>
+            <option value="50">Oui, NCLC 7+ en français et CLB 5+ en anglais (+50 points)</option>
+        </select>
+        
+        <label for="certificat">Avez-vous un certificat de qualification délivré par une province ou un territoire canadien pour un métier spécialisé ?</label>
+        <select id="certificat">
+            <option value="0">Non</option>
+            <option value="50">Oui (+50 points)</option>
+        </select>
+    </div>
+
+    <div class="section conjoint-section" id="section-conjoint">
+        <h2>8. Facteurs du Conjoint/Partenaire</h2>
+        <p class="small">Ces points sont ajoutés si votre conjoint ou partenaire vous accompagne dans la demande. Maximum 40 points.</p>
+        <label for="conjoint-education">Niveau d’études du conjoint/partenaire (évalué par un E.C.A.) :</label>
+        <select id="conjoint-education">
+            <option value="0">Moins qu'un diplôme d'études secondaires</option>
+            <option value="2">Diplôme d'études secondaires</option>
+            <option value="6">Certificat, diplôme ou grade d'un an postsecondaire</option>
+            <option value="7">Certificat, diplôme ou grade de deux ans postsecondaire</option>
+            <option value="8">Baccalauréat (trois ans ou plus)</option>
+            <option value="9">Deux certificats, diplômes ou grades postsecondaires (dont un de trois ans ou plus)</option>
+            <option value="10">Maîtrise, diplôme professionnel ou Doctorat (Ph.D.)</option>
+        </select>
+
+        <h3>Compétences Linguistiques du Conjoint/Partenaire (CLB/NCLC)</h3>
+        <p class="small">Le conjoint peut obtenir un maximum de 5 points par compétence si CLB 5 ou plus.</p>
+        <label for="conjoint-langue-ecoute">Compréhension de l'oral :</label>
+        <select id="conjoint-langue-ecoute">
+            <option value="0">Moins de CLB 5</option>
+            <option value="5">CLB 5 ou plus</option>
+        </select>
+        <label for="conjoint-langue-parler">Expression orale :</label>
+        <select id="conjoint-langue-parler">
+            <option value="0">Moins de CLB 5</option>
+            <option value="5">CLB 5 ou plus</option>
+        </select>
+        <label for="conjoint-langue-lire">Compréhension de l'écrit :</label>
+        <select id="conjoint-langue-lire">
+            <option value="0">Moins de CLB 5</option>
+            <option value="5">CLB 5 ou plus</option>
+        </select>
+        <label for="conjoint-langue-ecrire">Expression écrite :</label>
+        <select id="conjoint-langue-ecrire">
+            <option value="0">Moins de CLB 5</option>
+            <option value="5">CLB 5 ou plus</option>
+        </select>
+
+        <label for="conjoint-experience-canada">Expérience de travail qualifiée au Canada du conjoint/partenaire :</label>
+        <select id="conjoint-experience-canada">
+            <option value="0">Aucune</option>
+            <option value="5">1 an</option>
+            <option value="7">2 ans</option>
+            <option value="8">3 ans</option>
+            <option value="9">4 ans</option>
+            <option value="10">5 ans ou plus</option>
+        </select>
+    </div>
+
+    <button type="button" onclick="calculerScore()">Calculer mon Score SCG</button>
+
+    <div id="result"></div>
+
+    <script>
+        function afficherConjoint() {
+            const val = document.getElementById('conjoint').value;
+            document.getElementById('section-conjoint').style.display = val === 'oui' ? 'block' : 'none';
+        }
+
+        // Fonction pour obtenir le NCLC/CLB maximal pour une langue
+        function getMaxLangueScore(readId, writeId, listenId, speakId) {
+            const read = parseInt(document.getElementById(readId).value);
+            const write = parseInt(document.getElementById(writeId).value);
+            const listen = parseInt(document.getElementById(listenId).value);
+            const speak = parseInt(document.getElementById(speakId).value);
+            return Math.max(read, write, listen, speak);
+        }
+
+        function calculerTransferabilite() {
+            const education = parseInt(document.getElementById('education').value);
+            const expCanada = parseInt(document.getElementById('experience-canada').value);
+            const expEtranger = parseInt(document.getElementById('experience-etranger').value); // Use value directly for points
+            
+            const frListen = parseInt(document.getElementById('langue-fr-ecoute').value);
+            const frSpeak = parseInt(document.getElementById('langue-fr-parler').value);
+            const frRead = parseInt(document.getElementById('langue-fr-lire').value);
+            const frWrite = parseInt(document.getElementById('langue-fr-ecrire').value);
+
+            const minFrScore = Math.min(frListen, frSpeak, frRead, frWrite); // Minimum CLIC/NCLC toutes compétences
+
+            let points = 0;
+
+            // Combinaison Éducation et Compétences linguistiques
+            if (education >= 90) { // Postsecondaire
+                if (minFrScore >= 34) points += 50; // NCLC 9+
+                else if (minFrScore >= 23) points += 25; // NCLC 7-8
+            }
+
+            // Combinaison Expérience de travail au Canada et Compétences linguistiques
+            if (expCanada >= 40) { // 1 an d'expérience au Canada ou plus
+                if (minFrScore >= 34) points += 50; // NCLC 9+
+                else if (minFrScore >= 23) points += 25; // NCLC 7-8
+            }
+
+            // Combinaison Expérience de travail à l'étranger et Éducation
+            if (expEtranger > 0) { // Expérience à l'étranger
+                if (education >= 120) points += 50; // Baccalauréat ou plus
+                else if (education >= 90) points += 25; // Postsecondaire (1-2 ans)
+            }
+
+            // Combinaison Expérience de travail à l'étranger et Expérience de travail au Canada
+            if (expEtranger > 0 && expCanada > 0) {
+                points += 50; // Maximum de 50 pour cette combinaison
+            }
+
+            points = Math.min(points, 100); // Maximum 100 points pour la transférabilité
+            document.getElementById('auto-transferabilite').innerHTML = 
+                <strong>${points} points</strong> (Calculé automatiquement);
+            return points;
+        }
+
+        function calculerScore() {
+            const avecConjoint = document.getElementById('conjoint').value === 'oui';
+            const age = parseInt(document.getElementById('age').value);
+            const education = parseInt(document.getElementById('education').value);
+            
+            // Langues du demandeur principal
+            const frListen = parseInt(document.getElementById('langue-fr-ecoute').value);
+            const frSpeak = parseInt(document.getElementById('langue-fr-parler').value);
+            const frRead = parseInt(document.getElementById('langue-fr-lire').value);
+            const frWrite = parseInt(document.getElementById('langue-fr-ecrire').value);
+            const enListen = parseInt(document.getElementById('langue-en-ecoute').value);
+            const enSpeak = parseInt(document.getElementById('langue-en-parler').value);
+            const enRead = parseInt(document.getElementById('langue-en-lire').value);
+            const enWrite = parseInt(document.getElementById('langue-en-ecrire').value);
+
+            const experienceCanada = parseInt(document.getElementById('experience-canada').value);
+            const nomination = parseInt(document.getElementById('nomination').value);
+            const familleCanada = parseInt(document.getElementById('famille-canada').value);
+            const etudesCanada = parseInt(document.getElementById('etudes-canada').value);
+            const certificat = parseInt(document.getElementById('certificat').value);
+            const offre = parseInt(document.getElementById('offre').value);
+            const francaisAvance = parseInt(document.getElementById('francais-avance').value);
+            const transferabilite = calculerTransferabilite(); // Appel de la fonction de calcul de transférabilité
+
+            // Points pour l'âge (barème officiel IRCC - ajusté pour 2025 selon le mode conjoint/non-conjoint)
+            let pointsAge = 0;
+            if (age === 18) pointsAge = avecConjoint ? 90 : 99;
+            else if (age === 19) pointsAge = avecConjoint ? 95 : 105;
+            else if (age >= 20 && age <= 29) pointsAge = avecConjoint ? 100 : 110;
+            else if (age === 30) pointsAge = avecConjoint ? 95 : 105;
+            else if (age === 31) pointsAge = avecConjoint ? 90 : 99;
+            else if (age === 32) pointsAge = avecConjoint ? 85 : 94;
+            else if (age === 33) pointsAge = avecConjoint ? 80 : 88;
+            else if (age === 34) pointsAge = avecConjoint ? 75 : 83;
+            else if (age === 35) pointsAge = avecConjoint ? 70 : 77;
+            else if (age === 36) pointsAge = avecConjoint ? 65 : 72;
+            else if (age === 37) pointsAge = avecConjoint ? 60 : 66;
+            else if (age === 38) pointsAge = avecConjoint ? 55 : 61;
+            else if (age === 39) pointsAge = avecConjoint ? 50 : 55;
+            else if (age === 40) pointsAge = avecConjoint ? 45 : 50;
+            else if (age === 41) pointsAge = avecConjoint ? 35 : 39;
+            else if (age === 42) pointsAge = avecConjoint ? 25 : 28;
+            else if (age === 43) pointsAge = avecConjoint ? 15 : 17;
+            else if (age === 44) pointsAge = avecConjoint ? 5 : 6;
+            else if (age >= 45) pointsAge = 0;
+
+            // Calcul des points linguistiques du demandeur principal
+            const totalFrPoints = frListen + frSpeak + frRead + frWrite;
+            const totalEnPoints = enListen + enSpeak + enRead + enWrite;
+            let pointsLanguesDemandeurPrincipal = totalFrPoints + totalEnPoints;
+            
+            // Max de 24 points pour la 2ème langue officielle si le demandeur est seul
+            // Si le demandeur est avec conjoint, les points pour la 2ème langue sont déjà inclus dans les 4 compétences
+            // pour le demandeur principal, le maximum pour la 2eme langue est 24 pts.
+            // On s'assure que la somme des points de langue ne dépasse pas les maximums
+            if (!avecConjoint) {
+                // Pour demandeur seul, max 136 pour la 1ère langue (34*4) et 24 pour la 2ème (6*4)
+                pointsLanguesDemandeurPrincipal = Math.min(pointsLanguesDemandeurPrincipal, 160); 
+            } else {
+                // Pour demandeur avec conjoint, max 128 pour la 1ère langue et 22 pour la 2ème
+                 pointsLanguesDemandeurPrincipal = Math.min(pointsLanguesDemandeurPrincipal, 150);
+            }
+            
+            // Points du conjoint (calculé seulement si avecConjoint est "oui")
+            let pointsConjoint = 0;
+            if (avecConjoint) {
+                pointsConjoint += parseInt(document.getElementById('conjoint-education').value) || 0;
+                pointsConjoint += parseInt(document.getElementById('conjoint-langue-ecoute').value) || 0;
+                pointsConjoint += parseInt(document.getElementById('conjoint-langue-parler').value) || 0;
+                pointsConjoint += parseInt(document.getElementById('conjoint-langue-lire').value) || 0;
+                pointsConjoint += parseInt(document.getElementById('conjoint-langue-ecrire').value) || 0;
+                pointsConjoint += parseInt(document.getElementById('conjoint-experience-canada').value) || 0;
+                pointsConjoint = Math.min(pointsConjoint, 40); // Max 40 points pour le conjoint
+            }
+
+            // Calcul du total
+            let total = pointsAge + education + pointsLanguesDemandeurPrincipal + experienceCanada + transferabilite + 
+                        nomination + offre + etudesCanada + familleCanada + francaisAvance + certificat + pointsConjoint;
+            
+            // Correction des points d'éducation pour le demandeur principal seul (max 150)
+            // et avec conjoint (max 140)
+            let educationPointsForPrincipal = education;
+            if (avecConjoint) {
+                educationPointsForPrincipal = Math.min(education, 140);
+            } else {
+                educationPointsForPrincipal = Math.min(education, 150);
+            }
+            
+            // Correction de l'expérience canadienne pour le demandeur principal seul (max 80)
+            // et avec conjoint (max 70)
+            let experienceCanadaPointsForPrincipal = experienceCanada;
+            if (avecConjoint) {
+                experienceCanadaPointsForPrincipal = Math.min(experienceCanada, 70);
+            } else {
+                experienceCanadaPointsForPrincipal = Math.min(experienceCanada, 80);
+            }
+
+            // Recalcul du total avec les plafonds spécifiques
+            total = pointsAge + educationPointsForPrincipal + pointsLanguesDemandeurPrincipal + experienceCanadaPointsForPrincipal + transferabilite + 
+                        nomination + offre + etudesCanada + familleCanada + francaisAvance + certificat + pointsConjoint;
+
+
+            // Affichage du résultat
+            document.getElementById('result').innerHTML = `
+                <h3>Votre score SCG estimé : <span style="color:#007bff; font-size:1.2em;">${total}</span> / 1200</h3>
+                <p><strong>Détail de votre score :</strong></p>
+                <ul>
+                    <li><strong>Âge :</strong> ${pointsAge} points</li>
+                    <li><strong>Éducation (Demandeur Principal) :</strong> ${educationPointsForPrincipal} points</li>
+                    <li><strong>Compétences Linguistiques (Demandeur Principal) :</strong> ${pointsLanguesDemandeurPrincipal} points</li>
+                    <li><strong>Expérience de Travail au Canada :</strong> ${experienceCanadaPointsForPrincipal} points</li>
+                    <li><strong>Facteurs de Transférabilité des Compétences :</strong> ${transferabilite} points</li>
+                    <li><strong>Facteurs du Conjoint/Partenaire :</strong> ${pointsConjoint} points</li>
+                    <li><strong>Nomination Provinciale (PCP) :</strong> ${nomination} points</li>
+                    <li><strong>Offre d'Emploi Validée :</strong> ${offre} points</li>
+                    <li><strong>Études Postsecondaires au Canada :</strong> ${etudesCanada} points</li>
+                    <li><strong>Frère/Sœur au Canada :</strong> ${familleCanada} points</li>
+                    <li><strong>Maîtrise Avancée du Français :</strong> ${francaisAvance} points</li>
+                    <li><strong>Certificat de Qualification (métier spécialisé) :</strong> ${certificat} points</li>
+                </ul>
+                <p>
+                    <strong>Important :</strong> Ce calculateur fournit une estimation. Pour une évaluation officielle et pour soumettre votre profil, vous devrez utiliser
+                    <a href="https://www.canada.ca/fr/immigration-refugies-citoyennete/services/immigrer-canada/entree-express/systeme-classement-global/points-scg.html" target="_blank" style="color:#007bff;">l'outil officiel d'IRCC</a>
+                    et suivre les directives complètes d'Entrée Express.
+                </p>
+            `;
+        }
+
+        // Initialiser l'affichage au  de la page
+        document.addEventListener('DOMContentLoaded', afficherConjoint);
+    </script>
+</body>
+</html>
